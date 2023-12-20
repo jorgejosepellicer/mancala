@@ -4,7 +4,7 @@ public class Mancala {
 	public static void rellenarMancala(int[][] matriz) {
 		for(int i=0; i<matriz.length; i++) {
 			for(int j=0; j<matriz[0].length; j++) {
-				matriz[i][j]=1;
+				matriz[i][j]=2;
 			}
 		}
 	}
@@ -14,7 +14,6 @@ public class Mancala {
 		
 		if(nombre1.length()!=3) {
 			System.out.println("El nombre debe contener 3 carácteres.");
-			System.out.println("Inserta nombre de Jugador 1 (3 carácteres):");
 			return false;
 		}
 		return true;
@@ -26,13 +25,11 @@ public class Mancala {
 		
 		if(nombre2.length()!=3) {
 			System.out.println("El nombre debe contener 3 carácteres.");
-			System.out.println("Inserta nombre de Jugador 2 (3 carácteres):");
 			return false;
 		}
 		
 		if(nombre2.equals(nombre1)) {
 			System.out.println("Los nombres deben ser diferentes.");
-			System.out.println("Inserta nombre de Jugador 2 (3 carácteres):");
 			return false;
 		}
 		return true;
@@ -276,7 +273,7 @@ public class Mancala {
 		}else if(sinPiedrasJ2(matriz)) {
 			for(int i=0; i<matriz.length; i++) {
 				for(int j=0; j<matriz[0].length; j++) {
-					mancala2+=matriz[1][j];
+					mancala1+=matriz[0][j];
 					matriz[0][j]=0;
 				}
 			}
@@ -305,19 +302,21 @@ public class Mancala {
 		
 		int[][] tablero=new int[2][6];
 		
-		System.out.println("Inserta nombre de Jugador 1 (3 carácteres):");
-		String nombreJ1=sc.nextLine();
-		while(!esCorrectoNombreJ1(nombreJ1)) {
+		String nombreJ1;
+		
+		do {
+			System.out.println("Inserta nombre de Jugador 1 (3 carácteres):");
 			nombreJ1=sc.nextLine();
-		}
+		}while(!esCorrectoNombreJ1(nombreJ1));
 		
 		System.out.println();
 		
-		System.out.println("Inserta nombre de Jugador 2 (3 carácteres):");
-		String nombreJ2=sc.nextLine();
-		while(!esCorrectoNombreJ2(nombreJ1, nombreJ2)) {
+		String nombreJ2;
+		
+		do {
+			System.out.println("Inserta nombre de Jugador 2 (3 carácteres):");
 			nombreJ2=sc.nextLine();
-		}
+		}while(!esCorrectoNombreJ1(nombreJ2));
 		
 		System.out.println();
 		
@@ -334,6 +333,8 @@ public class Mancala {
 			if(sinPiedrasJ1(tablero)) {
 				System.out.println();
 				System.out.println("¡Movimiento decisivo!");
+				mancalaJ2=turnoJ2(tablero, mancalaJ1, mancalaJ2, nombreJ1, nombreJ2);
+				imprimirMancala(tablero, mancalaJ1, mancalaJ2, nombreJ1, nombreJ2);
 			}
 			
 			mancalaJ2=turnoJ2(tablero, mancalaJ1, mancalaJ2, nombreJ1, nombreJ2);
